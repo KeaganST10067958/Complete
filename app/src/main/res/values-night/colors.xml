@@ -7,9 +7,14 @@
     <color name="onPrimary">#FFFFFF</color>
     <color name="secondary">#7BCBFF</color>
     <color name="onSecondary">#0D0D0D</color>
+
     <color name="surface">#121212</color>
     <color name="onSurface">#FFFFFF</color>
     <color name="surfaceVariant">#1E1F23</color>
+
+    <!-- Missing from your layout usage -->
+    <color name="onSurfaceVariant">#CAC4D0</color> <!-- M3 dark -->
+    <color name="glass_80">#CCFFFFFF</color>       <!-- 80% white works well on dark -->
 
     <color name="navActive">#FF6CA8</color>
     <color name="navInactive">#66FFFFFF</color>

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Pastel brand -->
-    <color name="pastelPink">#FFB3C7</color>
-    <color name="pastelBlue">#B3E5FF</color>
+    <!-- Pastels -->
+    <color name="pastel_pink">#F8BBD0</color>      <!-- soft pink -->
+    <color name="pastel_pink_dark">#F48FB1</color> <!-- a bit deeper for pressed states -->
+    <color name="pastel_blue">#B3E5FC</color>      <!-- soft blue -->
+    <color name="pastel_blue_dark">#81D4FA</color>
 
-    <!-- Material base -->
-    <color name="primary">#FF89B0</color>
-    <color name="onPrimary">#FFFFFF</color>
-    <color name="secondary">#8FD3FF</color>
-    <color name="onSecondary">#0D0D0D</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="onSurface">#111111</color>
-    <color name="surfaceVariant">#F5F7FA</color>
+    <!-- App theme colors (used by Theme.Complete) -->
+    <color name="primary">#F48FB1</color>          <!-- pink as primary -->
+    <color name="onPrimary">#FFFFFFFF</color>
+    <color name="secondary">#81D4FA</color>        <!-- blue as secondary -->
+    <color name="onSecondary">#FF003247</color>
 
-    <!-- Bottom nav -->
-    <color name="navActive">#FF63A0</color>
-    <color name="navInactive">#7F1F1F1F</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="onSurface">#FF1F2430</color>
+    <color name="surfaceVariant">#80FFFFFF</color> <!-- translucent for glassy fills -->
 
-    <!-- Misc / legacy refs -->
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFF</color>
+    <!-- Missing from your layout usage -->
+    <color name="onSurfaceVariant">#49454F</color> <!-- M3 light -->
+    <color name="glass_80">#CCFFFFFF</color>       <!-- 80% white for glass -->
+
     <color name="hintText">#99000000</color>
-    <color name="pinkPen">#FF63A0</color>
+
+    <!-- Subtle shadows / strokes for glass effect -->
+    <color name="glass_fill">#66FFFFFF</color>     <!-- 40% white -->
+    <color name="glass_stroke">#33FFFFFF</color>   <!-- 20% white -->
 </resources>

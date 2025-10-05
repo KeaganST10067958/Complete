@@ -5,37 +5,65 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.animation.doOnEnd
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.core.content.ContextCompat
 import com.keagan.complete.R
+import kotlin.math.min
 
 class SwooshView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
+    context: Context,
+    attrs: AttributeSet? = null
 ) : View(context, attrs) {
 
-    // Callbacks
-    var onProgress: ((posX: Float, posY: Float) -> Unit)? = null
-    var onFinish: (() -> Unit)? = null
+    private var primary = ContextCompat.getColor(context, R.color.primary)
+    private var secondary = ContextCompat.getColor(context, R.color.secondary)
+    private var durationMs = 1200
 
-    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.getColor(R.color.pinkPen)
+    private val paint1 = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = 6f
         strokeCap = Paint.Cap.ROUND
-        strokeJoin = Paint.Join.ROUND
+    }
+    private val paint2 = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE
+        strokeCap = Paint.Cap.ROUND
     }
 
-    private val fullPath = Path()
-    private val drawnPath = Path()
-    private lateinit var pathMeasure: PathMeasure
-    private var pathLength = 0f
-    private var progress = 0f
-
+    private val arcRect = RectF()
+    private var sweepProgress = 0f // 0..1
     private var animator: ValueAnimator? = null
 
+    init {
+        if (attrs != null) {
+            val ta = context.obtainStyledAttributes(attrs, R.styleable.SwooshView)
+            try {
+                primary = ta.getColor(R.styleable.SwooshView_sw_primaryColor, primary)
+                secondary = ta.getColor(R.styleable.SwooshView_sw_secondaryColor, secondary)
+                durationMs = ta.getInteger(R.styleable.SwooshView_sw_duration, durationMs)
+            } finally {
+                ta.recycle()
+            }
+        }
+        paint1.color = primary
+        paint2.color = secondary
+        // Strokes sized relative to display density; adjusted in onSizeChanged too
+        val baseStroke = resources.displayMetrics.density * 12
+        paint1.strokeWidth = baseStroke
+        paint2.strokeWidth = baseStroke * 0.66f
+    }
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        buildPath(w, h)
+        val size = min(w, h) * 0.9f
+        val cx = w / 2f
+        val cy = h / 2f
+        arcRect.set(cx - size / 2, cy - size / 2, cx + size / 2, cy + size / 2)
+
+        // Keep stroke width looking nice on larger screens
+        val base = min(w, h) / 24f
+        paint1.strokeWidth = base
+        paint2.strokeWidth = base * 0.66f
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
         startAnim()
     }
 
@@ -44,57 +72,28 @@ class SwooshView @JvmOverloads constructor(
         animator?.cancel()
     }
 
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        if (!::pathMeasure.isInitialized) return
-
-        drawnPath.reset()
-        val stop = pathLength * progress
-        pathMeasure.getSegment(0f, stop, drawnPath, true)
-        canvas.drawPath(drawnPath, paint)
-
-        // Report current tip position
-        val pos = FloatArray(2)
-        val tan = FloatArray(2)
-        pathMeasure.getPosTan(stop, pos, tan)
-        onProgress?.invoke(pos[0], pos[1])
-    }
-
-    private fun buildPath(w: Int, h: Int) {
-        fullPath.reset()
-
-        val pad = 12f
-        val ww = (w - pad * 2)
-        val hh = (h - pad * 2)
-
-        val startX = pad
-        val startY = hh * 0.65f + pad
-        val endX = ww + pad
-        val endY = hh * 0.35f + pad
-
-        val c1X = ww * 0.35f + pad
-        val c1Y = hh + pad
-        val c2X = ww * 0.70f + pad
-        val c2Y = pad
-
-        fullPath.moveTo(startX, startY)
-        fullPath.cubicTo(c1X, c1Y, c2X, c2Y, endX, endY)
-
-        pathMeasure = PathMeasure(fullPath, false)
-        pathLength = pathMeasure.length
-    }
-
     private fun startAnim() {
         animator?.cancel()
         animator = ValueAnimator.ofFloat(0f, 1f).apply {
-            duration = 1100L
-            interpolator = FastOutSlowInInterpolator()
+            duration = durationMs.toLong()
             addUpdateListener {
-                progress = it.animatedValue as Float
+                sweepProgress = it.animatedValue as Float
                 invalidate()
             }
-            doOnEnd { onFinish?.invoke() }
             start()
         }
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+
+        // Two pastel arcs that sweep in as progress grows
+        val start1 = -60f
+        val sweep1 = 240f * sweepProgress
+        canvas.drawArc(arcRect, start1, sweep1, false, paint1)
+
+        val start2 = 140f
+        val sweep2 = 240f * sweepProgress
+        canvas.drawArc(arcRect, start2, sweep2, false, paint2)
     }
 }

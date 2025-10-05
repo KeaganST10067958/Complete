@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_pastel_gradient">
+    android:layout_height="match_parent">
 
+    <!-- Nav host -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -14,15 +14,16 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/mobile_navigation" />
 
+    <!-- Bottom navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_nav_menu"
-        app:itemIconTint="@color/bottom_nav_item_tint"
-        app:itemTextColor="@color/bottom_nav_item_tint"
-        app:itemRippleColor="@color/ripple_brand"
-        android:background="@android:color/transparent"
+        app:itemIconTint="@color/bnv_item_tint"
+        app:itemTextColor="@color/bnv_item_tint"
+        app:itemRippleColor="@color/bnv_ripple"
         app:labelVisibilityMode="labeled"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

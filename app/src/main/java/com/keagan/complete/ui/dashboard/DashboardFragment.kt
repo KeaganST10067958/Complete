@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.keagan.complete.R
 
 class DashboardFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_dashboard, container, false)
 }

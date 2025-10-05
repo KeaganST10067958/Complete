@@ -26,6 +26,12 @@
     <string name="create_account">Create account</string>
     <string name="already_have_account_login">Already have an account? Log in</string>
 
+    <string name="placeholder_quote_text">“Small progress is still progress.”</string>
+    <string name="placeholder_quote_author">— PlanDemic</string>
+
+    <string name="check_in_for_today">Check in for today</string>
+    <string name="checked_in_today">Checked in today</string>
+
     <!-- Bottom nav -->
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

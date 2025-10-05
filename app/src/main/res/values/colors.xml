@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Pastel brand -->
+    <color name="pastelPink">#FFB3C7</color>
+    <color name="pastelBlue">#B3E5FF</color>
+
+    <!-- Material base -->
+    <color name="primary">#FF89B0</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="secondary">#8FD3FF</color>
+    <color name="onSecondary">#0D0D0D</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="onSurface">#111111</color>
+    <color name="surfaceVariant">#F5F7FA</color>
+
+    <!-- Bottom nav -->
+    <color name="navActive">#FF63A0</color>
+    <color name="navInactive">#7F1F1F1F</color>
+
+    <!-- Misc / legacy refs -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="hintText">#99000000</color>
+    <color name="pinkPen">#FF63A0</color>
+</resources>

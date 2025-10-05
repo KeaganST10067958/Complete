@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_pastel_gradient">
+
+    <LinearLayout
+        android:id="@+id/centerBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/tvBrand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/brand_text"
+            android:textSize="44sp"
+            android:textColor="@color/onPrimary"
+            android:paddingBottom="8dp" />
+
+        <!-- Our custom drawing view that animates a curved “swoosh” underline -->
+        <com.keagan.complete.ui.splash.SwooshView
+            android:id="@+id/swooshView"
+            android:layout_width="260dp"
+            android:layout_height="50dp" />
+
+        <!-- Pink pen that glides over the swoosh path -->
+        <ImageView
+            android:id="@+id/ivPen"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="end"
+            android:translationY="-18dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:tint="@color/pinkPen"/>
+    </LinearLayout>
+</FrameLayout>
